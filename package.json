@@ -8,10 +8,20 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
+    "dotenv": "^16.0.1",
     "env": "^0.0.2",
     "express": "^4.18.1",
+    "mongoose": "^6.4.1",
     "nodemon": "^2.0.16"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kwant88/Projet7.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kwant88/Projet7/issues"
+  },
+  "homepage": "https://github.com/kwant88/Projet7#readme",
+  "description": ""
 }
