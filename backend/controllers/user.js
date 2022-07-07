@@ -4,20 +4,20 @@ const User = require("../models/users")
 
 //On sécurise le mdp en le hachant avec bcrypt
 exports.signup = (req,res,next) =>{
-    const { email, password } = req.body;
+    const { pseudo, email, password } = req.body;
   
     bcrypt.hash(password, 10).then((hash) => {
       
   
-      const user = new User({ email, password: hash });
+      const user = new User({pseudo,email, password: hash });
   
       user.save();
   
-      return res.status(201).json({ email, password: hash });
+      return res.status(201).json({ pseudo, email, password: hash });
     });
   }
   exports.login =  (req,res,next) => {
-    const { email, password } = req.body;
+    const { pseudo, email, password } = req.body;
     User.findOne({ email })
       .then((user) => {
         console.log(user);
