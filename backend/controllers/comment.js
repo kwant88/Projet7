@@ -1,13 +1,13 @@
 // Création des actions pour le modèle "sauce"
-const Sauce = require("../models/sauces");
+const Comment = require("../models/sauces");
 const fs = require("fs");
 
 // Ajout d'une sauce dans la BDD
-exports.createSauce = (req, res, next) => {
-  const sauceObject = JSON.parse(req.body.sauce);
-  delete sauceObject._id;
+exports.createComment = (req, res, next) => {
+  const commentObject = JSON.parse(req.body.sauce);
+  delete commentObject._id;
   const sauce = new Sauce({
-    ...sauceObject,
+    ...commentObject,
     imageUrl: `${req.protocol}://${req.get("host")}/images/${
       req.file.filename
     }`,
@@ -19,8 +19,8 @@ exports.createSauce = (req, res, next) => {
 };
 
 // Récupération des informations
-exports.getOneSauce = (req, res, next) => {
-  Sauce.findOne({
+exports.getOneComment = (req, res, next) => {
+  Comment.findOne({
     _id: req.params.id,
   })
     .then((sauce) => {
@@ -34,47 +34,47 @@ exports.getOneSauce = (req, res, next) => {
 };
 
 // Modif des informations d'une seule sauce
-exports.modifySauce = (req, res, next) => {
+exports.modifyComment = (req, res, next) => {
   if (req.file) {
     console.log("if");
-    Sauce.findOne({ _id: req.params.id })
+    Comment.findOne({ _id: req.params.id })
       .then((sauce) => {
-        const filename = sauce.imageUrl.split("/images/")[1];
+        const filename = comment.imageUrl.split("/images/")[1];
         fs.unlink(`images/${filename}`, () => {
-          const sauceObject = {
+          const commentObject = {
             ...JSON.parse(req.body.sauce),
             imageUrl: `${req.protocol}://${req.get("host")}/images/${
               req.file.filename
             }`,
           };
-          Sauce.updateOne(
+          Comment.updateOne(
             { _id: req.params.id },
-            { ...sauceObject, _id: req.params.id }
+            { ...commentObject, _id: req.params.id }
           )
-            .then(() => res.status(200).json({ message: "Sauce modifiée!" }))
+            .then(() => res.status(200).json({ message: "Commentaire modifié!" }))
             .catch((error) => res.status(400).json({ error }));
         });
       })
       .catch((error) => res.status(500).json({ error }));
   } else {
     console.log("else");
-    const sauceObject = { ...req.body };
-    Sauce.updateOne(
+    const commentObject = { ...req.body };
+    Comment.updateOne(
       { _id: req.params.id },
-      { ...sauceObject, _id: req.params.id }
+      { ...commentObject, _id: req.params.id }
     )
-      .then(() => res.status(200).json({ message: "Sauce modifiée!" }))
+      .then(() => res.status(200).json({ message: "Commentaire modifié!" }))
       .catch((error) => res.status(400).json({ error }));
   }
 };
 
 // Suppression d'une seule sauce (son image reste sur le serveur)
-exports.deleteSauce = (req, res, next) => {
-  Sauce.findOne({ _id: req.params.id })
+exports.deleteComment = (req, res, next) => {
+  Comment.findOne({ _id: req.params.id })
     .then((sauce) => {
-      const filename = sauce.imageUrl.split("/images/")[1];
+      const filename = comment.imageUrl.split("/images/")[1];
       fs.unlink(`images/${filename}`, () => {
-        Sauce.deleteOne({ _id: req.params.id })
+        Comment.deleteOne({ _id: req.params.id })
           .then(() => res.status(200).json({ message: "Sauce supprimée !" }))
           .catch((error) => res.status(400).json({ error }));
       });
@@ -84,10 +84,10 @@ exports.deleteSauce = (req, res, next) => {
 
 // Afficher toutes les sauces
 
-exports.getAllSauce = (req, res, next) => {
-  Sauce.find()
-    .then((sauces) => {
-      res.status(200).json(sauces);
+exports.getAllComment = (req, res, next) => {
+  Comment.find()
+    .then((comment) => {
+      res.status(200).json(comment);
     })
     .catch((error) => {
       res.status(400).json({

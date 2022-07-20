@@ -17,6 +17,7 @@ const userSchema = mongoose.Schema(
       type: String,
       require: true,
       validate: [isEmail],
+      unique: true,
       lowercase: true,
       trim:true,
 
@@ -27,7 +28,11 @@ const userSchema = mongoose.Schema(
       max: 1024,
       minLength: 7,
       maxLength: 60,
-   }
+   },
+   picture: {
+      type: String,
+      default:"./pictures/avatar/default.png"
+   },
 
 });
 
