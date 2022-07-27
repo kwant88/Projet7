@@ -1,12 +1,12 @@
-// Création des actions pour le modèle "sauce"
-const Comment = require("../models/sauces");
+// Création des actions pour le modèle "comment"
+const Comment = require("../models/comments");
 const fs = require("fs");
 
-// Ajout d'une sauce dans la BDD
+// Ajout d'un post dans la BDD
 exports.createComment = (req, res, next) => {
   const commentObject = JSON.parse(req.body.sauce);
   delete commentObject._id;
-  const sauce = new Sauce({
+  const comment = new Comment({
     ...commentObject,
     imageUrl: `${req.protocol}://${req.get("host")}/images/${
       req.file.filename
@@ -14,7 +14,7 @@ exports.createComment = (req, res, next) => {
   });
   sauce
     .save()
-    .then(() => res.status(201).json({ message: "Sauce enregistrée !" }))
+    .then(() => res.status(201).json({ message: "Commentaire enregistré !" }))
     .catch((error) => res.status(400).json({ error }));
 };
 
@@ -33,7 +33,7 @@ exports.getOneComment = (req, res, next) => {
     });
 };
 
-// Modif des informations d'une seule sauce
+// Modif des informations d'un commentaire
 exports.modifyComment = (req, res, next) => {
   if (req.file) {
     console.log("if");
@@ -68,7 +68,7 @@ exports.modifyComment = (req, res, next) => {
   }
 };
 
-// Suppression d'une seule sauce (son image reste sur le serveur)
+// Suppression d'un com (son image reste sur le serveur)
 exports.deleteComment = (req, res, next) => {
   Comment.findOne({ _id: req.params.id })
     .then((sauce) => {
@@ -82,7 +82,7 @@ exports.deleteComment = (req, res, next) => {
     .catch((error) => res.status(500).json({ error }));
 };
 
-// Afficher toutes les sauces
+// Afficher tous les commentaires
 
 exports.getAllComment = (req, res, next) => {
   Comment.find()
@@ -96,7 +96,7 @@ exports.getAllComment = (req, res, next) => {
     });
 };
 
-// Ajout des likes et dislikes pour chaque sauce
+// Ajout des likes et dislikes pour chaque commentaire
 exports.likeSauce = (req, res) => {
   /* Si le client Like cette sauce */
   console.log(req);
