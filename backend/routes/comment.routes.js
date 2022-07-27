@@ -1,16 +1,17 @@
 const express = require('express');
 const router = express.Router();
+const multer = require ("../middleware/multer-config");
 
-const auth = require('../../../Projet6/backend/middleware/auth');
-const multer = require('../../../Projet6/backend/middleware/multer-config');
+const postController = require ('../controllers/comment.js')
 
-const sauceCtrl = require('../../../Projet6/backend/controllers/sauce');
+//const auth = require('../../../Projet6/backend/middleware/auth');
 
-router.get('/', auth, sauceCtrl.getAllSauce);
-router.post('/', auth, multer, sauceCtrl.createSauce);
-router.get('/:id', auth, sauceCtrl.getOneSauce);
-router.put('/:id', auth, multer, sauceCtrl.modifySauce);
-router.delete('/:id', auth, sauceCtrl.deleteSauce);
-router.post('/:id/like', auth, sauceCtrl.likeSauce);
+
+router.get('/', postController.getAllComment);
+router.post('/', multer, postController.createComment);
+router.get('/:id', postController.getOneComment);
+router.put('/:id', postController.modifyComment);
+router.delete('/:id', postController.deleteComment);
+router.post('/:id/like', postController.likeComment);
 
 module.exports = router;

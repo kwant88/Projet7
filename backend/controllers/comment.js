@@ -4,15 +4,15 @@ const fs = require("fs");
 
 // Ajout d'un post dans la BDD
 exports.createComment = (req, res, next) => {
-  const commentObject = JSON.parse(req.body.sauce);
-  delete commentObject._id;
+  console.log(req.body)
+  const commentObject =req.body;
   const comment = new Comment({
     ...commentObject,
-    imageUrl: `${req.protocol}://${req.get("host")}/images/${
+    image: `${req.protocol}://${req.get("host")}/images/${
       req.file.filename
     }`,
   });
-  sauce
+  comment
     .save()
     .then(() => res.status(201).json({ message: "Commentaire enregistré !" }))
     .catch((error) => res.status(400).json({ error }));
@@ -23,8 +23,8 @@ exports.getOneComment = (req, res, next) => {
   Comment.findOne({
     _id: req.params.id,
   })
-    .then((sauce) => {
-      res.status(200).json(sauce);
+    .then((comment) => {
+      res.status(200).json(comment);
     })
     .catch((error) => {
       res.status(404).json({
@@ -38,12 +38,12 @@ exports.modifyComment = (req, res, next) => {
   if (req.file) {
     console.log("if");
     Comment.findOne({ _id: req.params.id })
-      .then((sauce) => {
+      .then((comment) => {
         const filename = comment.imageUrl.split("/images/")[1];
         fs.unlink(`images/${filename}`, () => {
           const commentObject = {
-            ...JSON.parse(req.body.sauce),
-            imageUrl: `${req.protocol}://${req.get("host")}/images/${
+            ...JSON.parse(req.body.comment),
+            image: `${req.protocol}://${req.get("host")}/images/${
               req.file.filename
             }`,
           };
@@ -71,15 +71,33 @@ exports.modifyComment = (req, res, next) => {
 // Suppression d'un com (son image reste sur le serveur)
 exports.deleteComment = (req, res, next) => {
   Comment.findOne({ _id: req.params.id })
-    .then((sauce) => {
-      const filename = comment.imageUrl.split("/images/")[1];
-      fs.unlink(`images/${filename}`, () => {
+    .then((comment) => {
+      if (comment.image){
+        const filename = comment.image.split("/images/")[1];
+        fs.unlink(`images/${filename}`, () => {
+          Comment.deleteOne({ _id: req.params.id })
+            .then(() => res.status(200).json({ message: "Commentaire supprimé !" }))
+            .catch((error) => res.status(400).json({ error }));
+        });
+
+      }
+
+       else{
+
         Comment.deleteOne({ _id: req.params.id })
-          .then(() => res.status(200).json({ message: "Sauce supprimée !" }))
-          .catch((error) => res.status(400).json({ error }));
-      });
+        .then(() => res.status(200).json({ message: "Commentaire supprimé !" }))
+        .catch((error) => res.status(400).json({ error }));
+
+       }
+     
     })
-    .catch((error) => res.status(500).json({ error }));
+    .catch((error) => 
+    {
+      console.log("error",error)
+      res.status(500).json({ error })
+
+    });
+  
 };
 
 // Afficher tous les commentaires
@@ -96,45 +114,32 @@ exports.getAllComment = (req, res, next) => {
     });
 };
 
-// Ajout des likes et dislikes pour chaque commentaire
-exports.likeSauce = (req, res) => {
-  /* Si le client Like cette sauce */
+// Ajout des likes pour chaque commentaire
+exports.likeComment = (req, res) => {
+  /* Si le client Like ce commentaire */
   console.log(req);
   if (req.body.like === 1) {
-    Sauce.findOneAndUpdate(
+    Comment.findOneAndUpdate(
       { _id: req.params.id },
-      { $inc: { likes: 1 }, $push: { usersLiked: req.body.userId } }
+      { $inc: { likes: 1 }, $push: { likers: req.body.userId } }
     )
       .then(() => res.status(200).json({ message: "Like ajouté !" }))
       .catch((error) => res.status(400).json({ error }));
 
-    /* Si le client disike cette sauce */
-  } else if (req.body.like === -1) {
-    Sauce.findOneAndUpdate(
-      { _id: req.params.id },
-      { $inc: { dislikes: 1 }, $push: { usersDisliked: req.body.userId } }
-    )
-      .then(() => res.status(200).json({ message: "Dislike ajouté !" }))
-      .catch((error) => res.status(400).json({ error }));
+
 
     /* Si le client annule son choix */
   } else {
-    Sauce.findOne({ _id: req.params.id }).then((resultat) => {
-      if (resultat.usersLiked.includes(req.body.userId)) {
-        Sauce.findOneAndUpdate(
+    Comment.findOne({ _id: req.params.id }).then((resultat) => {
+      console.log("resultat",resultat)
+      if (resultat.likers.includes(req.body.userId)) {
+        Comment.findOneAndUpdate(
           { _id: req.params.id },
-          { $inc: { likes: -1 }, $pull: { usersLiked: req.body.userId } }
+          { $inc: { likes: -1 }, $pull: { likers: req.body.userId } }
         )
           .then(() => res.status(200).json({ message: "like retiré !" }))
           .catch((error) => res.status(400).json({ error }));
-      } else if (resultat.usersDisliked.includes(req.body.userId)) {
-        Sauce.findOneAndUpdate(
-          { _id: req.params.id },
-          { $inc: { dislikes: -1 }, $pull: { usersDisliked: req.body.userId } }
-        )
-          .then(() => res.status(200).json({ message: "dislike retiré !" }))
-          .catch((error) => res.status(400).json({ error }));
-      }
+      } 
     });
   }
 };

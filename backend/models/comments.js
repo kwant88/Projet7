@@ -13,14 +13,18 @@ const commentSchema = new mongoose.Schema(
         trim:true,
         maxlength: 550,
     },
-        img:{
+        image:{
             type:String,
         },
         likers:{
             type:[String],
             required:true,
         },
-        comments:{
+        likes: {
+            type: Number,
+            default: 0,
+        },
+        comments :{
             type: [
                 {
                     userId:String,
