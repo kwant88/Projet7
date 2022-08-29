@@ -17,6 +17,7 @@ const Home = () => {
         <div>
             
             <h1>Accueil</h1>
+            <h2>Connexion</h2>
             
         </div>
     )

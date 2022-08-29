@@ -5,11 +5,15 @@ import React from "react";
 //Pages
 
 import Home from "../pages/Home";
+import Inscription from "../pages/Inscription";
 
 function App() {
+  //Dans toutes les requetes axios, on stocke le token
+  axios.defaults.headers.common.Authorization = `Bearer ${localStorage.token}`;
   return (
     <div className="App">
       <Home/>
+      <Inscription/>
       <header className="App-header">
         
         
@@ -25,5 +29,7 @@ function App() {
     </div>
   );
 }
+
+
 
 export default App;
