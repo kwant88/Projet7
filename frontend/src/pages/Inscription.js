@@ -52,7 +52,7 @@ function Inscription() {
     <header className="App-header">
     <form onSubmit={(e) => {handleSubmit(e)}}>
      {/*quand l'utilisateur envoie le formulaire , la fonction handle summit sera appelée .*/}
-    <h2> Test </h2>
+    <h2> Inscription </h2>
     <h3> Formulaire </h3>
     
         <label >

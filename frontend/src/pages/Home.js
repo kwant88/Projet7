@@ -1,24 +1,32 @@
 import axios from "axios";
 import {useEffect, useState} from "react";
+import { Link } from "react-router-dom";
 
 const Home = () => {
 
     const[post, setPosts] = useState([]);
 
     useEffect(() =>{
-        axios.get("http://localhost:3000/api/post")
+        axios.get("http://localhost:5000/api/comment")
         .then(({data}) => {
             setPosts(data)
         })
     },[]
     )
-
+console.log(post);
     return(
         <div>
             
             <h1>Accueil</h1>
-            <h2>Connexion</h2>
-            
+            <Link to= "/signup">Inscription</Link>
+            {post.map(element=>{
+                return(
+                    <div className="post">
+                        {element.message}
+                         </div>
+
+                )
+            })}
         </div>
     )
 }

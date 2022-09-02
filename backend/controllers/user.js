@@ -15,6 +15,7 @@ exports.signup = (req,res,next) =>{
   
       return res.status(201).json({ pseudo, email, password: hash });
     });
+    //Ajouter erreur signup 400
   }
   exports.login =  (req,res,next) => {
     const {  email, password } = req.body;
