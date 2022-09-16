@@ -1,6 +1,7 @@
 import axios from "axios";
 import {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
+import Posts from "./Posts";
 
 const Home = () => {
 
@@ -20,16 +21,14 @@ console.log(post);
             <h1>Accueil</h1>
             <Link to= "/signup">Inscription</Link>
             <Link to = "/login">Connexion</Link>
-            {post.map(element=>{
-                return(
-                    <div className="post">
-                        {element.message}
+            
+            <Posts />
                          </div>
 
                 )
-            })}
-        </div>
-    )
-}
+            }
+        
+    
+
 
 export default Home

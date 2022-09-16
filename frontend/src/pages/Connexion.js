@@ -30,6 +30,7 @@ function Connexion() {
         .then (res=> {
           console.log(res);
           localStorage.token=res.data.token;
+          axios.defaults.headers.common.Authorization = `Bearer ${res.data.token}`;
         }
         )
         .catch (error =>{
