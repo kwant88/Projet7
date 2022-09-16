@@ -19,6 +19,7 @@ console.log(post);
             
             <h1>Accueil</h1>
             <Link to= "/signup">Inscription</Link>
+            <Link to = "/login">Connexion</Link>
             {post.map(element=>{
                 return(
                     <div className="post">

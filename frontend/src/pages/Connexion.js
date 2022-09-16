@@ -1,5 +1,6 @@
 import axios from "axios";
 import {useState} from "react";
+import { Link } from "react-router-dom";
 
 
  
@@ -44,7 +45,10 @@ function Connexion() {
     <header className="Login-header">
     <form onSubmit={(e) => {handleSubmit(e)}}>
      {/*quand l'utilisateur envoie le formulaire , la fonction handle summit sera appelée .*/}
-    <h2> Connexion </h2>
+    
+    <h1><Link to = "/">Home</Link></h1>
+    <h2> <Link to = "/login">Connexion</Link> </h2>
+    <h2><Link to= "/signup">Inscription</Link></h2>
     <h3> Formulaire </h3>
     
         

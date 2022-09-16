@@ -8,13 +8,19 @@ exports.signup = (req,res,next) =>{
   
     bcrypt.hash(password, 10).then((hash) => {
       
+  //const user = new User({pseudo,email, password: hash });
   
-      const user = new User({pseudo,email, password: hash });
+     // user.save();
   
-      user.save();
-  
-      return res.status(201).json({ pseudo, email, password: hash });
+     User.create({ pseudo, email, password: hash }, (error, ok) => {
+      if (error) {
+        return res.status(400).json({ error: "Error while creating" });
+      }
+      return res.status(201).json({ message: "User created successfully!" });
     });
+     
+    })
+    .catch((err) => res.status(500).json({ message: "Unauthorised", err }));
     //Ajouter erreur signup 400
   }
   exports.login =  (req,res,next) => {
