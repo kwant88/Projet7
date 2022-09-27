@@ -8,6 +8,7 @@ exports.createComment = (req, res, next) => {
   const commentObject =req.body;
   const comment = new Comment({
     ...commentObject,
+    userId:req.auth.userId,  //On passe du middleware auth au controller
     image: `${req.protocol}://${req.get("host")}/images/${
       req.file.filename
     }`,

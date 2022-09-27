@@ -11,6 +11,7 @@ import Connexion from "../pages/Connexion";
 function App() {
   //Dans toutes les requetes axios, on stocke le token
   axios.defaults.headers.common.Authorization = `Bearer ${localStorage.token}`;
+  console.log(localStorage.token)
   return (
     <div className="App">
       <Home/>
