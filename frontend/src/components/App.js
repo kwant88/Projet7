@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import {BrowserRouter, Match, Miss,Routes,Route} from 'react-router-dom';
 
 
 //Pages
@@ -13,23 +14,13 @@ function App() {
   axios.defaults.headers.common.Authorization = `Bearer ${localStorage.token}`;
   console.log(localStorage.token)
   return (
-    <div className="App">
-      <Home/>
-      <Inscription/>
-      <Connexion/>
-      <header className="App-header">
-        
-        
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+  <Routes>
+      <Route path="/" element={<Home/>}/>
+      <Route path="/signup" element={<Inscription />}/>
+      <Route path="/login" element={<Connexion />}/>
+    </Routes>
+</BrowserRouter>
   );
 }
 
