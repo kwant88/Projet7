@@ -10,7 +10,7 @@ const auth = require('../middleware/auth');
 router.get('/', postController.getAllComment);
 router.post('/', auth, multer, postController.createComment);
 router.get('/:id', postController.getOneComment);
-router.put('/:id', postController.modifyComment);
+router.put('/:id', multer,postController.modifyComment);
 router.delete('/:id', postController.deleteComment);
 router.post('/:id/like', postController.likeComment);
 

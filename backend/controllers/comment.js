@@ -43,11 +43,12 @@ exports.modifyComment = (req, res, next) => {
         const filename = comment.imageUrl.split("/images/")[1];
         fs.unlink(`images/${filename}`, () => {
           const commentObject = {
-            ...JSON.parse(req.body.comment),
+            ...req.body,
             image: `${req.protocol}://${req.get("host")}/images/${
               req.file.filename
             }`,
           };
+          console.log(commentObject)
           Comment.updateOne(
             { _id: req.params.id },
             { ...commentObject, _id: req.params.id }

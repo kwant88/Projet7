@@ -20,14 +20,17 @@ return <div>
     {posts.map((post)=> {
         return <div key={post._id}>  
         {post.message}
+        <RemovePosts id={post._id} getPosts={getPosts}/>
+        <ModifyPosts id={post._id} getPosts={getPosts}/>
             </div>
 })}
 <Form getPosts={getPosts}/>
+
 </div>;
 }
 function Form(props) {
     const [comment , setComment] = useState('');
-    const [file,setFile] = useState()
+    const [file,setFile] = useState();
 
     const handleChange =(e)=>{
         setComment(e.target.value);
@@ -86,7 +89,100 @@ console.log(file);
           );
 
 }
+//Pour supprimer un post
+function RemovePosts(props)  {
+    
+
+    const handleSubmit=(e)=>{
+      console.log("click");
+      
+      axios.delete('http://localhost:5000/api/comment/'+ props.id) //on passe des infos d'une fonction à une autre
+      .then((res)=>{
+        props.getPosts()
+          console.log(res)
+          
+      })  
+
+    }
+
+
+return (
+  <div className="Delete">
+  <header className="App-delete">
+  <h3 onClick={(e) => {handleSubmit(e)}}> Supprimer </h3>
+  </header>
+  </div>
+  )
+}
+
+//Pour modifier les posts
+
+function ModifyPosts (props){
+  const [comment , setComment] = useState('');
+  const [file,setFile] = useState();
+
+  const handleChange =(e)=>{
+      setComment(e.target.value);
+    }
+    const handleFileChange = (e)=>{
+      setFile (e.target.files[0]);
+    }
+
+    const handleSubmit=(e)=>
+     {
+        const formData = new FormData()
+        formData.append("message",comment) 
+        formData.append("image",file)
+        
+        axios.put("http://localhost:5000/api/comment/"+props.id,formData)
+        .then (res=> {
+          console.log(res);
+          props.getPosts()
+        }
+        )
+        .catch (error =>{
+          console.log(error);
+        })
+      
+      e.preventDefault();
+ 
+    }
+
+  useEffect(()=>{
+
+    axios.put('http://localhost:5000/api/comment/'+ props.id)
+    .then((res) => {
+      props.getPosts()
+      console.log(res)
+    })
+  },[])
+
+  return (
+    <div className="Comment">
+    <header className="App-comment">
+    <form onSubmit={(e) => {handleSubmit(e)}}>
+     {/*quand l'utilisateur envoie le formulaire , la fonction handle summit sera appelée .*/}
+     
+    <h3> Formulaire de modification </h3>
+    
+        <label >
+          Commentaire:
+        </label><br/>
+        <input type="text" value={comment} required onChange={(e) => {handleChange(e)}} /><br/>
+
+           <input type = "file" required onChange={(e) => {handleFileChange(e)}  } />
+       
+        <input type="submit" value="Submit"/>
+      </form>
+    </header>
+    </div>
+  );
+
+}
+
 export default Posts;
+
+
 /*
 <label >
 Likes:
