@@ -22,6 +22,7 @@ return <div>
         {post.message}
         <RemovePosts id={post._id} getPosts={getPosts}/>
         <ModifyPosts id={post._id} getPosts={getPosts}/>
+        <Likes id={post._id} getPosts={getPosts}/>
             </div>
 })}
 <Form getPosts={getPosts}/>
@@ -178,8 +179,104 @@ function ModifyPosts (props){
     </div>
   );
 
-}
 
+//Pour ajouter un like/dislike:
+
+}
+function Likes(props){
+const [likesCounter, setLikesCounter] = useState(props.likes);
+const [dislikesCounter, setDislikesCounter] = useState(props.dislikes);
+const [userReaction, setUserReaction] = useState(props.userReaction);
+const [hasReacted, setHasReacted] = useState(props.userReaction === null ? false : true);
+
+
+const userReactionHandler = (event) => {
+  event.preventDefault();
+  let reaction;
+
+  switch (userReaction) {
+      case null:
+          if (event.currentTarget.name === "like") {
+              setLikesCounter(likesCounter + 1);
+              reaction = event.currentTarget.name;
+          } else {
+              setDislikesCounter(dislikesCounter + 1);
+              reaction = event.currentTarget.name;
+          }
+          setUserReaction(event.currentTarget.name);
+          setHasReacted(true);
+          break;
+
+      case "null":
+          if (event.currentTarget.name === "like") {
+              setLikesCounter(likesCounter + 1);
+              reaction = event.currentTarget.name;
+          } else {
+              setDislikesCounter(dislikesCounter + 1);
+              reaction = event.currentTarget.name;
+          }
+          setUserReaction(event.currentTarget.name);
+
+          break;
+
+      case "like":
+          if (event.currentTarget.name === "like") {
+              setLikesCounter(likesCounter - 1);
+              reaction = "null";
+          } else {
+              setLikesCounter(likesCounter - 1);
+              setDislikesCounter(dislikesCounter + 1);
+              setUserReaction(event.currentTarget.name);
+              reaction = event.currentTarget.name;
+          }
+
+          break;
+
+      case "dislike":
+          if (event.currentTarget.name === "dislike") {
+              setDislikesCounter(dislikesCounter - 1);
+              reaction = "null";
+          } else {
+              setLikesCounter(likesCounter + 1);
+              setDislikesCounter(dislikesCounter - 1);
+              setUserReaction(event.currentTarget.name);
+              reaction = event.currentTarget.name;
+          }
+
+          break;
+
+          default:
+            console.log("error");
+            break;
+    }
+  }
+
+  return(
+    <div classname={"likesButtons"}>
+    <footer className={"buttons"}>
+        <button
+            btntype="functional"
+            name="like"
+            onReaction={userReactionHandler}
+            reaction={userReaction === "like" ? "like" : null}
+            icon="like"
+            text={likesCounter}
+            styling=""
+        />
+        <button
+            btntype="functional"
+            name="dislike"
+            onReaction={userReactionHandler}
+            reaction={userReaction === "dislike" ? "dislike" : null}
+            icon="dislike"
+            text={dislikesCounter}
+            styling=""
+        />
+        
+    </footer>
+</div>
+  )
+}
 export default Posts;
 
 
