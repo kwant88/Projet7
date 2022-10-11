@@ -34,6 +34,11 @@ const userSchema = mongoose.Schema(
       default:"./pictures/avatar/default.png"
    },
 
+   role :{
+      type:String,
+      required:true,
+   }
+
 });
 
     module.exports = mongoose.model('User', userSchema);
