@@ -3,7 +3,7 @@ import axios from "axios";
 
 function Posts () {
 const [posts, setPosts] = useState([]);
-
+const [user,setUser] =useState();
 const getPosts = () =>
 {
     axios.get('http://localhost:5000/api/comment')
@@ -14,15 +14,24 @@ const getPosts = () =>
 }
 useEffect(()=>{
 getPosts()
+axios.get ('http://localhost:5000/api/user/profile').then(({data})=>{
+  setUser(data.user);
+}
+);
 },[])
 //La key assure la continuité entre dom virtuel et dom réel.Brouillon > navigateur
 return <div>
     {posts.map((post)=> {
         return <div key={post._id}>  
         {post.message}
+        {user.role=== "admin" || user._id === post.userId ?(
+          <>
+        
         <RemovePosts id={post._id} getPosts={getPosts}/>
         <ModifyPosts id={post._id} getPosts={getPosts}/>
-        <Likes id={post._id} getPosts={getPosts}/>
+        </>
+    ) :null}
+        <Likes id={post._id} getPosts={getPosts} post ={post}/>
             </div>
 })}
 <Form getPosts={getPosts}/>
@@ -183,112 +192,33 @@ function ModifyPosts (props){
 //Pour ajouter un like/dislike:
 
 }
-function Likes(props){
-const [likesCounter, setLikesCounter] = useState(props.likes);
-const [dislikesCounter, setDislikesCounter] = useState(props.dislikes);
-const [userReaction, setUserReaction] = useState(props.userReaction);
-const [hasReacted, setHasReacted] = useState(props.userReaction === null ? false : true);
+function Likes({post}){
+  const[likes, setLikes]=useState(post.likes);
+  
+  console.log(post);
 
-
-const userReactionHandler = (event) => {
-  event.preventDefault();
-  let reaction;
-
-  switch (userReaction) {
-      case null:
-          if (event.currentTarget.name === "like") {
-              setLikesCounter(likesCounter + 1);
-              reaction = event.currentTarget.name;
-          } else {
-              setDislikesCounter(dislikesCounter + 1);
-              reaction = event.currentTarget.name;
-          }
-          setUserReaction(event.currentTarget.name);
-          setHasReacted(true);
-          break;
-
-      case "null":
-          if (event.currentTarget.name === "like") {
-              setLikesCounter(likesCounter + 1);
-              reaction = event.currentTarget.name;
-          } else {
-              setDislikesCounter(dislikesCounter + 1);
-              reaction = event.currentTarget.name;
-          }
-          setUserReaction(event.currentTarget.name);
-
-          break;
-
-      case "like":
-          if (event.currentTarget.name === "like") {
-              setLikesCounter(likesCounter - 1);
-              reaction = "null";
-          } else {
-              setLikesCounter(likesCounter - 1);
-              setDislikesCounter(dislikesCounter + 1);
-              setUserReaction(event.currentTarget.name);
-              reaction = event.currentTarget.name;
-          }
-
-          break;
-
-      case "dislike":
-          if (event.currentTarget.name === "dislike") {
-              setDislikesCounter(dislikesCounter - 1);
-              reaction = "null";
-          } else {
-              setLikesCounter(likesCounter + 1);
-              setDislikesCounter(dislikesCounter - 1);
-              setUserReaction(event.currentTarget.name);
-              reaction = event.currentTarget.name;
-          }
-
-          break;
-
-          default:
-            console.log("error");
-            break;
+  //Pour gérer le bouton like:
+const handleLike =() => {
+  axios
+  .post('http://localhost:5000/api/comment/'+post._id+'/like')
+  .then((res) =>{
+    if (res.data.liked){
+      setLikes(likes +1);
+    }else{
+      setLikes(likes -1);
     }
-  }
+    });
 
+  
+};
   return(
     <div classname={"likesButtons"}>
     <footer className={"buttons"}>
-        <button
-            btntype="functional"
-            name="like"
-            onReaction={userReactionHandler}
-            reaction={userReaction === "like" ? "like" : null}
-            icon="like"
-            text={likesCounter}
-            styling=""
-        />
-        <button
-            btntype="functional"
-            name="dislike"
-            onReaction={userReactionHandler}
-            reaction={userReaction === "dislike" ? "dislike" : null}
-            icon="dislike"
-            text={dislikesCounter}
-            styling=""
-        />
-        
+      <button onClick={handleLike}>Like</button> {likes}
+       
     </footer>
 </div>
   )
 }
 export default Posts;
 
-
-/*
-<label >
-Likes:
-</label><br/>
-<input type="text" value={likesCounter} required onChange={(e) => {handleLikesChange(e)}} /><br/>
-
-<label >
-Dislikes:
-</label><br/>
-<input type="text" value={dislikesCounter} required onChange={(e) => {handleDislikesChange(e)}} /><br/>
-     
-     */ 

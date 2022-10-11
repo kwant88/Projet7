@@ -40,7 +40,7 @@ exports.modifyComment = (req, res, next) => {
     console.log("if");
     Comment.findOne({ _id: req.params.id })
       .then((comment) => {
-        const filename = comment.imageUrl.split("/images/")[1];
+        const filename = comment.image.split("/images/")[1];
         fs.unlink(`images/${filename}`, () => {
           const commentObject = {
             ...req.body,
@@ -118,30 +118,29 @@ exports.getAllComment = (req, res, next) => {
 
 // Ajout des likes pour chaque commentaire
 exports.likeComment = (req, res) => {
-  /* Si le client Like ce commentaire */
-  console.log(req);
-  if (req.body.like === 1) {
-    Comment.findOneAndUpdate(
-      { _id: req.params.id },
-      { $inc: { likes: 1 }, $push: { likers: req.body.userId } }
-    )
-      .then(() => res.status(200).json({ message: "Like ajouté !" }))
-      .catch((error) => res.status(400).json({ error }));
-
-
-
-    /* Si le client annule son choix */
-  } else {
+ 
     Comment.findOne({ _id: req.params.id }).then((resultat) => {
-      console.log("resultat",resultat)
-      if (resultat.likers.includes(req.body.userId)) {
+      console.log("resultat",resultat);
+      if (resultat.likers.includes(req.auth.userId)) {
         Comment.findOneAndUpdate(
           { _id: req.params.id },
           { $inc: { likes: -1 }, $pull: { likers: req.body.userId } }
         )
-          .then(() => res.status(200).json({ message: "like retiré !" }))
+          .then(() => res.status(200).json({ message: "like retiré !",liked: false }))
           .catch((error) => res.status(400).json({ error }));
+
+        }else{ 
+          Comment.findOneAndUpdate(
+            {_id:req.params.id},
+            {$inc:{likes:1},$push:{likers:req.auth.userId}}
+          )
+      .then(()=>
+      res.status(200).json({message:"Like ajouté!",liked:true})
+      )
+      .catch((error) => res.status(400).json({error}));
       } 
     });
-  }
-};
+  };
+    
+  
+

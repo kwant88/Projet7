@@ -37,7 +37,7 @@ exports.signup = (req,res,next) =>{
             return res.status(201).json({
               message: "Connecté",
               userId: user._id,
-              token: jwt.sign({ userId: user._id }, "random", {
+              token: jwt.sign({ userId: user._id , role:user.role}, "random", {
                 expiresIn: "24h",
               }),
             });
@@ -46,4 +46,13 @@ exports.signup = (req,res,next) =>{
       })
       .catch(() => res.status(404).send("Not found"));
       
+  };
+
+  exports.getUser = (req,res) => {
+    User.findOne ({_id :req.auth.userId}).then((user) =>{
+      if (!user) {
+        return res.status(404).json({message:'not found'});
+      }
+      return res.status(200).json({user});
+    });
   }
