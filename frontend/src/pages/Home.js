@@ -3,6 +3,8 @@ import {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import Posts from "./Posts";
 
+import  "../css/styles.css";
+
 const Home = () => {
 
     const[post, setPosts] = useState([]);
@@ -16,7 +18,7 @@ const Home = () => {
     )
 console.log(post);
     return(
-        <div>
+        <div classname = "Home-header">
             
             <h1>Accueil</h1>
             <Link to= "/signup">Inscription</Link>

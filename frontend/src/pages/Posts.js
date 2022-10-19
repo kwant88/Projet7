@@ -38,6 +38,8 @@ return <div>
 
 </div>;
 }
+
+//Pour créer un formulaire commentaires
 function Form(props) {
     const [comment , setComment] = useState('');
     const [file,setFile] = useState();
