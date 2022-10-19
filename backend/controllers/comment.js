@@ -105,7 +105,7 @@ exports.deleteComment = (req, res, next) => {
 // Afficher tous les commentaires
 
 exports.getAllComment = (req, res, next) => {
-  Comment.find()
+  Comment.find({},null, {sort:{createdAt: -1}})
     .then((comment) => {
       res.status(200).json(comment);
     })
@@ -124,7 +124,7 @@ exports.likeComment = (req, res) => {
       if (resultat.likers.includes(req.auth.userId)) {
         Comment.findOneAndUpdate(
           { _id: req.params.id },
-          { $inc: { likes: -1 }, $pull: { likers: req.body.userId } }
+          { $inc: { likes: -1 }, $pull: { likers: req.auth.userId } }
         )
           .then(() => res.status(200).json({ message: "like retiré !",liked: false }))
           .catch((error) => res.status(400).json({ error }));

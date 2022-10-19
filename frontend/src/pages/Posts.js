@@ -19,11 +19,16 @@ axios.get ('http://localhost:5000/api/user/profile').then(({data})=>{
 }
 );
 },[])
+if(!user) {
+  return <p>Loading</p>;
+}
+
 //La key assure la continuité entre dom virtuel et dom réel.Brouillon > navigateur
 return <div>
     {posts.map((post)=> {
         return <div key={post._id}>  
-        {post.message}
+        <img src ={post.image} alt = "img"/>
+        {post.message} 
         {user.role=== "admin" || user._id === post.userId ?(
           <>
         
@@ -50,7 +55,7 @@ function Form(props) {
       const handleFileChange = (e)=>{
         setFile (e.target.files[0]);
       }
-  
+  /*
     useEffect(()=>{
         axios.post('http://localhost:5000/api/comment')
         .then((res)=>{
@@ -58,7 +63,7 @@ function Form(props) {
             props.setPosts(res.data) 
         })  
         },[])
-
+*/
         const handleSubmit=(e)=>
      {
         const formData = new FormData()

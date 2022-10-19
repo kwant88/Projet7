@@ -1,6 +1,8 @@
 import axios from "axios";
 import {useState} from "react";
 import { Link } from "react-router-dom";
+import Header from "./Header";
+import {useNavigate} from "react-router-dom";
 
 
  
@@ -9,7 +11,7 @@ function Connexion() {
     const [password , setPassword] = useState('');
     const [confPassword , setConfPassword] = useState('');
  
-    
+    const navigate= useNavigate();
     
     const handleEmailChange =(e)=>{
       setEmail(e.target.value);
@@ -31,6 +33,7 @@ function Connexion() {
           console.log(res);
           localStorage.token=res.data.token;
           axios.defaults.headers.common.Authorization = `Bearer ${res.data.token}`;
+          navigate ('/');
         }
         )
         .catch (error =>{
@@ -43,14 +46,15 @@ function Connexion() {
 
     return (
     <div className="Login">
-    <header className="Login-header">
+    <Header/>
+    <h3> Formulaire </h3>
     <form onSubmit={(e) => {handleSubmit(e)}}>
      {/*quand l'utilisateur envoie le formulaire , la fonction handle summit sera appelée .*/}
     
     <h1><Link to = "/">Home</Link></h1>
     <h2> <Link to = "/login">Connexion</Link> </h2>
     <h2><Link to= "/signup">Inscription</Link></h2>
-    <h3> Formulaire </h3>
+    
     
         
             
@@ -72,7 +76,7 @@ function Connexion() {
                 
         <input type="submit" value="Submit"/>
       </form>
-    </header>
+    
     </div>
   );
 }

@@ -2,6 +2,9 @@ import axios from "axios";
 import {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import Posts from "./Posts";
+import HeaderHome from "./HeaderHome";
+import Header from "../pages/Header";
+
 
 import  "../css/styles.css";
 
@@ -20,10 +23,8 @@ console.log(post);
     return(
         <div classname = "Home-header">
             
+            <HeaderHome/>
             <h1>Accueil</h1>
-            <Link to= "/signup">Inscription</Link>
-            <Link to = "/login">Connexion</Link>
-            
             <Posts />
                          </div>
 

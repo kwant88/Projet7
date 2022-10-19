@@ -1,7 +1,7 @@
 import axios from "axios";
 import {useState} from "react";
 import { Link } from "react-router-dom";
-
+import Header from "./Header";
 
  
 function Inscription() {
@@ -50,7 +50,7 @@ function Inscription() {
     }
   return (
     <div className="App">
-    <header className="App-header">
+    <Header/>
     <form onSubmit={(e) => {handleSubmit(e)}}>
      {/*quand l'utilisateur envoie le formulaire , la fonction handle summit sera appelée .*/}
      <h1><Link to = "/">Home</Link></h1>
@@ -88,7 +88,7 @@ function Inscription() {
                 
         <input type="submit" value="Submit"/>
       </form>
-    </header>
+    
     </div>
   );
 }

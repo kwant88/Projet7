@@ -8,6 +8,8 @@ import {BrowserRouter, Match, Miss,Routes,Route} from 'react-router-dom';
 import Home from "../pages/Home";
 import Inscription from "../pages/Inscription";
 import Connexion from "../pages/Connexion";
+import Header from "../pages/Header";
+import HeaderHome from '../pages/HeaderHome';
 
 function App() {
   //Dans toutes les requetes axios, on stocke le token

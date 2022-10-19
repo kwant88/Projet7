@@ -1,11 +1,11 @@
-import logo from "../backend/images/icon-left-font-monochrome-white";
+
 
 const Header = () => {
   return (
     <header className="Top-header">
       <nav className="navbar">
         <a className="navbar-logo" href="/">
-          <img src={logo} width={80} height={80} alt="logo Groupomania" />
+          <img src="/logo.png" width={80} height={80} alt="logo Groupomania" />
         </a>
 
         <div>
