@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "./Header";
 
+import "../css/styles.css";
+
 function Inscription() {
   const [pseudo, setPseudo] = useState("");
   const [email, setEmail] = useState("");
@@ -53,17 +55,7 @@ function Inscription() {
         }}
       >
         {/*quand l'utilisateur envoie le formulaire , la fonction handle summit sera appelée .*/}
-        <h1>
-          <Link to="/">Home</Link>
-        </h1>
-        <h2>
-          {" "}
-          <Link to="/login">Connexion</Link>{" "}
-        </h2>
-        <h2>
-          {" "}
-          <Link to="/signup">Inscription</Link>{" "}
-        </h2>
+        
         <h3> Formulaire </h3>
 
         <label>Pseudo:</label>
@@ -72,6 +64,7 @@ function Inscription() {
           type="text"
           value={pseudo}
           required
+          aria-label="pseudo"
           onChange={(e) => {
             handleChange(e);
           }}
@@ -84,6 +77,7 @@ function Inscription() {
           type="email"
           value={email}
           required
+          aria-label="email"
           onChange={(e) => {
             handleEmailChange(e);
           }}
@@ -96,6 +90,7 @@ function Inscription() {
           type="password"
           value={password}
           required
+          aria-label="motpasse"
           onChange={(e) => {
             handlePasswordChange(e);
           }}
@@ -108,6 +103,7 @@ function Inscription() {
           type="password"
           value={confPassword}
           required
+          aria-label="confirmpasse"
           onChange={(e) => {
             handleConfPasswordChange(e);
           }}

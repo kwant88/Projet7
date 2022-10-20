@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
+import "../css/styles.css";
+
 const HeaderHome = () => {
   const navigate = useNavigate();
 
@@ -18,7 +20,7 @@ const HeaderHome = () => {
     <header className="Top-header">
       <nav className="navbar">
         <a className="navbar-logo" href="/">
-          <img src="/logo.png" width={80} height={80} alt="logo Groupomania" />
+          <img src="/logo.png" width={120} height={120} alt="logo Groupomania" />
         </a>
 
         <div>

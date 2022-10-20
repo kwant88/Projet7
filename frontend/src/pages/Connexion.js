@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import Header from "./Header";
 import { useNavigate } from "react-router-dom";
 
+import "../css/styles.css";
+
 function Connexion() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -43,6 +45,7 @@ function Connexion() {
     <div className="Login">
       <Header />
       <h3> Formulaire </h3>
+      
       <form
         onSubmit={(e) => {
           handleSubmit(e);
@@ -50,16 +53,6 @@ function Connexion() {
       >
         {/*quand l'utilisateur envoie le formulaire , la fonction handle summit sera appelée .*/}
 
-        <h1>
-          <Link to="/">Home</Link>
-        </h1>
-        <h2>
-          {" "}
-          <Link to="/login">Connexion</Link>{" "}
-        </h2>
-        <h2>
-          <Link to="/signup">Inscription</Link>
-        </h2>
 
         <label>Email:</label>
         <br />

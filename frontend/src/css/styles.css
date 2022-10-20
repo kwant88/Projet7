@@ -21,3 +21,14 @@
     padding: 0;
     border: 0;
 }
+
+.navbar {
+    display: flex;
+    padding: 0px;
+    margin: 30px 0px 30px auto;
+}
+.Top-header {
+    display: flex;
+    padding: 0px;
+    margin: 0px 0px 0px auto;
+}

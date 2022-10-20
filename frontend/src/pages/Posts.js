@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import "../css/styles.css";
 
 function Posts() {
   const [posts, setPosts] = useState([]);
@@ -135,14 +136,14 @@ function RemovePosts(props) {
   return (
     <div className="Delete">
       <header className="App-delete">
-        <h3
+        <h1
           onClick={(e) => {
             handleSubmit(e);
           }}
         >
           {" "}
           Supprimer{" "}
-        </h3>
+        </h1>
       </header>
     </div>
   );
@@ -204,6 +205,7 @@ function ModifyPosts(props) {
             type="text"
             value={comment}
             required
+            aria-label="comment"
             onChange={(e) => {
               handleChange(e);
             }}
@@ -213,12 +215,13 @@ function ModifyPosts(props) {
           <input
             type="file"
             required
+            aria-label="image"
             onChange={(e) => {
               handleFileChange(e);
             }}
           />
 
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Submit" aria-label="soumettre" />
         </form>
       </header>
     </div>

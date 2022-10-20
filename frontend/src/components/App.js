@@ -10,6 +10,8 @@ import Connexion from "../pages/Connexion";
 import Header from "../pages/Header";
 import HeaderHome from "../pages/HeaderHome";
 
+import "../css/styles.css";
+
 function App() {
   //Dans toutes les requetes axios, on stocke le token
   axios.defaults.headers.common.Authorization = `Bearer ${localStorage.token}`;
