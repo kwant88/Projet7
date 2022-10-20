@@ -1,5 +1,3 @@
-
-
 const Header = () => {
   return (
     <header className="Top-header">
@@ -19,6 +17,6 @@ const Header = () => {
       </nav>
     </header>
   );
-}
+};
 
 export default Header;

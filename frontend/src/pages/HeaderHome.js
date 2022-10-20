@@ -1,20 +1,19 @@
-import {useNavigate} from "react-router-dom";
-import {useEffect} from "react";
-
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const HeaderHome = () => {
   const navigate = useNavigate();
-  
-    const logout =() => {
-        localStorage.clear();
-        navigate("/login")
-    };
 
-    useEffect(()=>{
-        if(!localStorage.token) {
-            navigate('/login');
-        }
-    },[]);
+  const logout = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
+
+  useEffect(() => {
+    if (!localStorage.token) {
+      navigate("/login");
+    }
+  }, []);
   return (
     <header className="Top-header">
       <nav className="navbar">
@@ -24,9 +23,6 @@ const HeaderHome = () => {
 
         <div>
           <button onClick={logout}>Déconnexion</button>
-            
-    
-         
         </div>
       </nav>
     </header>
