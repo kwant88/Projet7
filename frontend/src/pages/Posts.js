@@ -100,6 +100,7 @@ function Form(props) {
             type="text"
             value={comment}
             required
+            aria-label="commentaire"
             onChange={(e) => {
               handleChange(e);
             }}
@@ -109,6 +110,7 @@ function Form(props) {
           <input
             type="file"
             required
+            aria-label="image"
             onChange={(e) => {
               handleFileChange(e);
             }}
@@ -197,7 +199,7 @@ function ModifyPosts(props) {
         >
           {/*quand l'utilisateur envoie le formulaire , la fonction handle summit sera appelée .*/}
 
-          <h3> Formulaire de modification </h3>
+          <h1> Formulaire de modification </h1>
 
           <label>Commentaire:</label>
           <br />

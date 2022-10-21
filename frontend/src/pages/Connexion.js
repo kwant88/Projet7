@@ -44,7 +44,7 @@ function Connexion() {
   return (
     <div className="Login">
       <Header />
-      <h3> Formulaire </h3>
+      <h1> Formulaire </h1>
       
       <form
         onSubmit={(e) => {
