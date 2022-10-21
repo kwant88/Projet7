@@ -92,7 +92,7 @@ function Form(props) {
         >
           {/*quand l'utilisateur envoie le formulaire , la fonction handle summit sera appelée .*/}
 
-          <h3> Formulaire </h3>
+          <h1> Formulaire </h1>
 
           <label>Commentaire:</label>
           <br />
