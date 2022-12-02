@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { formatDistance, subDays } from 'date-fns'
 import "../css/styles.css";
 
 function Posts() {
@@ -36,6 +37,7 @@ function Posts() {
               </>
             ) : null}
             <Likes id={post._id} getPosts={getPosts} post={post} />
+            <Time id={post._id} getPosts={getPosts} post={post} />
           </div>
         );
       })}
@@ -55,15 +57,7 @@ function Form(props) {
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
-  /*
-    useEffect(()=>{
-        axios.post('http://localhost:5000/api/comment')
-        .then((res)=>{
-            console.log(res)
-            props.setPosts(res.data) 
-        })  
-        },[])
-*/
+  
   const handleSubmit = (e) => {
     const formData = new FormData();
     formData.append("message", comment);
@@ -255,5 +249,9 @@ function Likes({ post }) {
       </footer>
     </div>
   );
+}
+// Dates pour commentaires
+function Time ({post} ) {
+const result = formatDistance(new Date(2022, 12, 2), new Date(), { addSuffix: true })
 }
 export default Posts;
