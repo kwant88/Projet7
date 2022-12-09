@@ -150,6 +150,20 @@ form {
     text-align:center;
     transition: all 0.2s;
 }
+/*Zone commentaire*/
+
+.post{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.post-unique{
+    display: flex;
+    align-items: normal;
+    margin-right:  auto;
+
+}
     /*Responsive */
 
     @media (max-width: 767px) {

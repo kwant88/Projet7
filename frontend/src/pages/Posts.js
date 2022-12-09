@@ -28,9 +28,10 @@ function Posts() {
       {posts.map((post) => {
         return (
           <div key={post._id}>
-            {post.message}
+           <div class ="post"> 
+           <div class="post-unique">{post.message}</div>
             <img src={post.image} alt="img" />
-            
+            </div>
             {user.role === "admin" || user._id === post.userId ? (
               <>
                 <RemovePosts id={post._id} getPosts={getPosts} />
