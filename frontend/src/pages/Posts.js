@@ -24,12 +24,13 @@ function Posts() {
 
   //La key assure la continuité entre dom virtuel et dom réel.Brouillon > navigateur
   return (
-    <div>
+    <div className="message">
       {posts.map((post) => {
         return (
           <div key={post._id}>
-            <img src={post.image} alt="img" />
             {post.message}
+            <img src={post.image} alt="img" />
+            
             {user.role === "admin" || user._id === post.userId ? (
               <>
                 <RemovePosts id={post._id} getPosts={getPosts} />
@@ -37,7 +38,7 @@ function Posts() {
               </>
             ) : null}
             <Likes id={post._id} getPosts={getPosts} post={post} />
-            <Time id={post._id} getPosts={getPosts} post={post} />
+          
           </div>
         );
       })}
@@ -250,8 +251,5 @@ function Likes({ post }) {
     </div>
   );
 }
-// Dates pour commentaires
-function Time ({post} ) {
-const result = formatDistance(new Date(2022, 12, 2), new Date(), { addSuffix: true })
-}
+
 export default Posts;

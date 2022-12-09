@@ -17,18 +17,21 @@ const HeaderHome = () => {
     }
   }, []);
   return (
-    <header className="Top-header">
-      <nav className="navbar">
-        <a className="navbar-logo" href="/">
-          <img src="/logo.png" width={120} height={120} alt="logo Groupomania" />
-        </a>
+    <header>
+    <div class="header-grid">
+      <div class="navbar-logo" href="/">
+        <img src="/logo.png"  alt="logo Groupomania" />
+      </div>
 
-        <div>
+      <nav class="main-nav">
+       
+      </nav>
+      <div>
           <button onClick={logout}>Déconnexion</button>
         </div>
-      </nav>
-    </header>
+  </div>
+  </header>
   );
 };
-
+        
 export default HeaderHome;

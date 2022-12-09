@@ -44,7 +44,7 @@ function Connexion() {
   return (
     <div className="Login">
       <Header />
-      <h1> Formulaire </h1>
+      
       
       <form
         onSubmit={(e) => {
@@ -53,7 +53,8 @@ function Connexion() {
       >
         {/*quand l'utilisateur envoie le formulaire , la fonction handle summit sera appelée .*/}
 
-
+        <h1> Connexion </h1>
+        
         <label>Email:</label>
         <br />
         <input

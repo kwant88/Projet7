@@ -101,7 +101,9 @@ exports.deleteComment = (req, res, next) => {
 
 exports.getAllComment = (req, res, next) => {
   Comment.find({}, null, { sort: { createdAt: -1 } })
+  
     .then((comment) => {
+      console.log (comment)
       res.status(200).json(comment);
     })
     .catch((error) => {

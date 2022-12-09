@@ -5,6 +5,7 @@ import Header from "./Header";
 
 import "../css/styles.css";
 
+//On utilise le hook useState pour se brancher sur des fonctionnalités react
 function Inscription() {
   const [pseudo, setPseudo] = useState("");
   const [email, setEmail] = useState("");
@@ -56,7 +57,7 @@ function Inscription() {
       >
         {/*quand l'utilisateur envoie le formulaire , la fonction handle summit sera appelée .*/}
         
-        <h3> Formulaire </h3>
+        <h1> Inscription </h1>
 
         <label>Pseudo:</label>
         <br />
