@@ -195,7 +195,7 @@ function ModifyPosts(props) {
         >
           {/*quand l'utilisateur envoie le formulaire , la fonction handle summit sera appelée .*/}
 
-          <h1> Formulaire de modification </h1>
+          <h1> Modifier le post </h1>
 
           <label>Commentaire:</label>
           <br />

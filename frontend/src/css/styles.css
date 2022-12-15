@@ -1,7 +1,7 @@
 body{
     font-family:'Lato',sans-serif;
     background: rgb(34,193,195);
-    background: linear-gradient(135deg, rgb(206, 97, 30) 0%,     rgba(253,187,45,1) 100%);
+    background: linear-gradient(135deg, rgb(123, 27, 14) 0%,     rgb(156, 107, 0) 100%);
 }
 
 h1{
@@ -29,7 +29,7 @@ h2 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: rgb(206,97,30);
+    background-color: rgb(186, 53, 38);
 }
 
 .buttons{
@@ -99,6 +99,13 @@ header {
     justify-content: end;
   }
 
+ .deco-button{
+  display:grid;
+  align-content: flex-end;
+  justify-content: end;
+  margin-right: 0%;
+}
+
 input[type=submit] {
     display:inline-block;
     padding:0.3em 1.2em;
@@ -115,11 +122,28 @@ input[type=submit] {
     transition: all 0.2s;
   
 }
+input[type=file] {
+  display:inline-block;
+  padding:0.3em 1.2em;
+  margin:0 0.3em 0.3em 0;
+  margin-top: 10px;
+  border-radius:2em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family:'Roboto',sans-serif;
+  font-weight:300;
+  color:#FFFFFF;
+  background-color:#e77c1f;
+  text-align:center;
+  transition: all 0.2s;
+
+}
 label {
     
         margin-top:10px;
         display:block;
-        color: #4E5166
+        font-size: 15px;
+        color: #101011
   }
 label.inline {
     display:inline;
@@ -188,7 +212,18 @@ form {
             width: 100%;
             margin-top: 2px;
           }
-        
+        .navbar-logo{
+          display:flex;
+          flex-direction: column;
+          padding-top: 20px;
+          margin-right: 0%;
+        }
+
+        .img{
+          
+          height: 100%;
+          width: 100%;
+        }
     }
     /*
     @media only screen and (max-width : 767px) {

@@ -26,7 +26,7 @@ const HeaderHome = () => {
       <nav class="main-nav">
        
       </nav>
-      <div>
+      <div class="deco-button">
           <button onClick={logout}>Déconnexion</button>
         </div>
   </div>
